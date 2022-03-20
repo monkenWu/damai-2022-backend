@@ -22,7 +22,7 @@ class ExchangeService
      * @param string $from 來源幣別
      * @param string $to 目標幣別
      * @param integer $amount
-     * @return array [ "exchangeRate": 匯率 , "UTC": 更新時間]
+     * @return array [ "exchangeRate": 匯率 , "updateAt": 更新時間]
      */
     public function getExchangeRate(string $from, string $to, float $amount = 1): array
     {
