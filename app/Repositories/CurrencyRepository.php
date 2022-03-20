@@ -11,6 +11,26 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class CurrencyRepository
 {
+
+    /**
+     * 幣別資訊
+     *
+     * @var null|array
+     */
+    protected ?array $exchangeRateInfo = null;
+
+    /**
+     * 以 API 取得幣別資訊，並儲存在成員變數中
+     *
+     * @throws GuzzleException
+     */
+    private function initExchangeRateInfo()
+    {
+        $client   = new Client();
+        $response = $client->get('https://tw.rter.info/capi.php');
+        $this->exchangeRateInfo = json_decode($response->getBody(), true);
+    }
+
     /**
      * 取得幣別列表 中英轉換
      * @return string[]
@@ -33,11 +53,8 @@ class CurrencyRepository
      */
     public function getExchangeRate(string $currency)
     {
-        $client   = new Client();
-        $response = $client->get('https://tw.rter.info/capi.php');
-        $rateData = json_decode($response->getBody(), true);
+        if (is_null($this->exchangeRateInfo)) $this->initExchangeRateInfo();
         $key      = "USD" . $currency;
-        return $rateData[$key] ?? [];
-
+        return $this->exchangeRateInfo[$key] ?? [];
     }
 }
