@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+    app:
+        image: webdevops/php-nginx-dev:7.4-alpine
+        ports:
+            - 8080:80
+        working_dir: /app
+        environment:
+            - WEB_DOCUMENT_ROOT=/app/public
+            - PHP_DISPLAY_ERRORS=1
+            - XDEBUG_MODE=coverage
+        volumes:
+            - './:/app'
+

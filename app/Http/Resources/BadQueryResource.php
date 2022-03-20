@@ -6,11 +6,10 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ExchangeResource extends JsonResource
+class BadQueryResource extends JsonResource
 {
 
     public static $wrap = null;
-
     /**
      * Transform the resource into an array.
      *
@@ -21,8 +20,7 @@ class ExchangeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "exchange_rate" => $this->resource['exchangeRate'],
-            "udpated_at" => $this->resource['updateAt']
+            "msg" => $this->resource
         ];
     }
 }
